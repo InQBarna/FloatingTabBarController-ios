@@ -5,10 +5,10 @@ s.summary          = "A floating tab bar controller"
 s.description      = <<-DESC
 A floating tab bar controller
 DESC
-s.homepage         = 'https://github.com/InQBarna/FloatingTabBarController'
+s.homepage         = 'https://github.com/InQBarna/FloatingTabBarController-ios'
 s.license          = 'MIT'
 s.author           = { 'David Romacho' => 'david.romacho@inqbarna.com' }
-s.source           = { :git => "https://github.com/InQBarna/FloatingTabBarController/FloatingTabBarController.git", :tag => 'v0.1.0' }
+s.source           = { :git => "https://github.com/InQBarna/FloatingTabBarController-ios.git", :tag => 'v0.1.0' }
 
 s.ios.deployment_target = '10.0'
 s.requires_arc = true
