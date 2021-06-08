@@ -24,7 +24,7 @@
 
 import UIKit
 
-public class FloatingTabBarController: UITabBarController {
+open class FloatingTabBarController: UITabBarController {
 
     public var floatingTabBar: FloatingTabBar? {
         didSet {
@@ -45,13 +45,13 @@ public class FloatingTabBarController: UITabBarController {
         }
     }
 
-    public override var viewControllers: [UIViewController]? {
+    open override var viewControllers: [UIViewController]? {
         didSet {
             floatingTabBar?.reload()
         }
     }
 
-    public override var selectedIndex: Int {
+    open override var selectedIndex: Int {
         didSet {
             if
                 selectedIndex == oldValue,
@@ -80,7 +80,7 @@ public class FloatingTabBarController: UITabBarController {
         })
     }
 
-    public override func viewDidLoad() {
+    open override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.isHidden = true
         floatingTabBar?.reload()
