@@ -62,7 +62,7 @@ open class FloatingTabBarController: UITabBarController {
         }
     }
 
-    public override func viewDidLayoutSubviews() {
+    open override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
 
         guard
