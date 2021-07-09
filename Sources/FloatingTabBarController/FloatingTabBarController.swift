@@ -26,7 +26,7 @@ import UIKit
 
 open class FloatingTabBarController: UITabBarController {
 
-    private weak var boCo: NSLayoutConstraint!
+    private weak var tabBarBottomConstraint: NSLayoutConstraint!
 
     public var floatingTabBar: FloatingTabBar? {
         didSet {
@@ -38,8 +38,8 @@ open class FloatingTabBarController: UITabBarController {
             if let floatingTabBar = floatingTabBar {
                 floatingTabBar.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(floatingTabBar)
-                boCo = floatingTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-                boCo.isActive = true
+                tabBarBottomConstraint = floatingTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+                tabBarBottomConstraint.isActive = true
 
                 floatingTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
                 floatingTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
@@ -94,23 +94,21 @@ open class FloatingTabBarController: UITabBarController {
     }
 
     public var isTabBarVisible: Bool {
-        return boCo.constant == 0
+        return tabBarBottomConstraint.constant == 0
     }
     
     public func setTabBar(visible: Bool, animated: Bool) {
-        if visible {
-            if boCo.constant == 0 {
-                // already visible
-                return
-            }
+        let offset = floatingTabBar?.bounds.height ?? 200
+        let targetValue: CGFloat = visible ? 0 : offset
+        guard tabBarBottomConstraint.constant != targetValue else {
+            return
+        }
 
-            boCo.constant = 0
-        } else {
-            if boCo.constant < 0 {
-                // already hidden
-                return
+        tabBarBottomConstraint.constant = targetValue
+        if animated {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutIfNeeded()
             }
-            boCo.constant = 200
         }
     }
 
