@@ -26,6 +26,8 @@ import UIKit
 
 open class FloatingTabBarController: UITabBarController {
 
+    private weak var boCo: NSLayoutConstraint!
+
     public var floatingTabBar: FloatingTabBar? {
         didSet {
             if let oldValue = oldValue {
@@ -36,7 +38,9 @@ open class FloatingTabBarController: UITabBarController {
             if let floatingTabBar = floatingTabBar {
                 floatingTabBar.translatesAutoresizingMaskIntoConstraints = false
                 view.addSubview(floatingTabBar)
-                floatingTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0).isActive = true
+                boCo = floatingTabBar.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
+                boCo.isActive = true
+
                 floatingTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0).isActive = true
                 floatingTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0).isActive = true
                 floatingTabBar.floatingTabBarController = self
@@ -87,6 +91,27 @@ open class FloatingTabBarController: UITabBarController {
         super.viewDidLoad()
         tabBar.isHidden = true
         floatingTabBar?.reload()
+    }
+
+    public var isTabBarVisible: Bool {
+        return boCo.constant == 0
+    }
+    
+    public func setTabBar(visible: Bool, animated: Bool) {
+        if visible {
+            if boCo.constant == 0 {
+                // already visible
+                return
+            }
+
+            boCo.constant = 0
+        } else {
+            if boCo.constant < 0 {
+                // already hidden
+                return
+            }
+            boCo.constant = 200
+        }
     }
 
     public func adjustScrollIndicator(_ scrollView: UIScrollView) {
