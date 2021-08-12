@@ -89,10 +89,16 @@ open class FloatingTabBarController: UITabBarController {
 
     open override func viewDidLoad() {
         super.viewDidLoad()
+        tabBar.addObserver(self, forKeyPath: "hidden", options: [], context: nil)
         tabBar.isHidden = true
         floatingTabBar?.reload()
     }
 
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if !tabBar.isHidden {
+            tabBar.isHidden = true
+        }
+    }
     @objc
     public var isTabBarVisible: Bool {
         return tabBarBottomConstraint.constant == 0
