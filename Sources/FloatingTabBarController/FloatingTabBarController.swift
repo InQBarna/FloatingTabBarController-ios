@@ -100,6 +100,7 @@ open class FloatingTabBarController: UITabBarController {
 
     @objc
     public func setTabBar(visible: Bool, animated: Bool) {
+        tabBar.isHidden = true
         let offset = floatingTabBar?.bounds.height ?? 200
         let targetValue: CGFloat = visible ? 0 : offset
         guard tabBarBottomConstraint.constant != targetValue else {
