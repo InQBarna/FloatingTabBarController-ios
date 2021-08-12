@@ -93,10 +93,12 @@ open class FloatingTabBarController: UITabBarController {
         floatingTabBar?.reload()
     }
 
+    @objc
     public var isTabBarVisible: Bool {
         return tabBarBottomConstraint.constant == 0
     }
-    
+
+    @objc
     public func setTabBar(visible: Bool, animated: Bool) {
         let offset = floatingTabBar?.bounds.height ?? 200
         let targetValue: CGFloat = visible ? 0 : offset
@@ -112,6 +114,7 @@ open class FloatingTabBarController: UITabBarController {
         }
     }
 
+    @objc
     public func adjustScrollIndicator(_ scrollView: UIScrollView) {
         guard
             #available(iOS 11.0, *),
@@ -125,6 +128,7 @@ open class FloatingTabBarController: UITabBarController {
     }
 }
 
+@objc
 public extension UIViewController {
     var floatingTabBarController: FloatingTabBarController? {
         guard let parent = parent else {
