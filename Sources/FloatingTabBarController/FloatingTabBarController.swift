@@ -57,7 +57,6 @@ open class FloatingTabBarController: UITabBarController {
 
     open override var selectedIndex: Int {
         didSet {
-            
             guard selectedIndex != oldValue else {
                 if let nc = selectedViewController as? UINavigationController {
                     nc.popToRootViewController(animated: true)
@@ -66,6 +65,10 @@ open class FloatingTabBarController: UITabBarController {
             }
             
             floatingTabBar?.reload()
+            
+            if let vcs = viewControllers {
+                delegate?.tabBarController?(self, didSelect: vcs[selectedIndex])
+            }
         }
     }
 
